@@ -137,8 +137,10 @@ frontend/dist/
 *.db
 *.sqlite
 *.sqlite3
+*.db-journal
 backend/dev.db
 backend/prisma/dev.db
+backend/prisma/dev.db-journal
 
 # Logs
 logs
