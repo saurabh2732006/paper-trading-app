@@ -1,0 +1,29 @@
+{
+  "name": "paper-trading-app",
+  "version": "1.0.0",
+  "description": "A full-stack paper trading web application with real-time simulated market data",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"cd backend && yarn dev\" \"cd frontend && yarn dev\"",
+    "build": "cd backend && yarn build && cd ../frontend && yarn build",
+    "test": "cd backend && yarn test && cd ../frontend && yarn test",
+    "test:e2e": "cd frontend && yarn test:e2e",
+    "lint": "cd backend && yarn lint && cd ../frontend && yarn lint",
+    "typecheck": "cd backend && yarn typecheck && cd ../frontend && yarn typecheck",
+    "prisma:generate": "cd backend && yarn prisma:generate",
+    "prisma:migrate": "cd backend && yarn prisma:migrate",
+    "prisma:seed": "cd backend && yarn prisma:seed",
+    "prisma:reset": "cd backend && yarn prisma:reset"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "yarn": ">=1.22.0"
+  }
+}

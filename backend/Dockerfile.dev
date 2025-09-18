@@ -1,0 +1,28 @@
+# Development Dockerfile
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies for development
+RUN apk add --no-cache git
+
+# Copy package files
+COPY package.json yarn.lock ./
+
+# Install all dependencies (including dev dependencies)
+RUN yarn install
+
+# Copy source code
+COPY . .
+
+# Generate Prisma client
+RUN yarn prisma:generate
+
+# Expose port
+EXPOSE 3001
+
+# Start in development mode
+CMD ["yarn", "dev"]
+
+
