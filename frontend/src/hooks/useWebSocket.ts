@@ -66,6 +66,15 @@ export const useWebSocket = ({
   }, [clearTimeouts]);
 
   const getWebSocketUrl = useCallback(() => {
+    // Use environment variable if available
+    const apiUrl = import.meta.env.VITE_API_URL;
+    if (apiUrl) {
+      const url = new URL(apiUrl);
+      const protocol = url.protocol === 'https:' ? 'wss:' : 'ws:';
+      return `${protocol}//${url.host}/ws/prices${userId ? `?userId=${userId}` : ''}`;
+    }
+    
+    // Fallback to current location
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const host = window.location.host;
     return `${protocol}//${host}/ws/prices${userId ? `?userId=${userId}` : ''}`;

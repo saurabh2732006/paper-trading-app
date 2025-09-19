@@ -1,0 +1,40 @@
+services:
+  # Backend Service
+  - type: web
+    name: paper-trading-backend
+    runtime: node
+    buildCommand: cd backend && yarn install && yarn build && yarn prisma:generate
+    startCommand: cd backend && yarn deploy
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: PRICE_TICK_INTERVAL
+        value: 1000
+      - key: PRICE_NOISE_FACTOR
+        value: 0.001
+
+  # Frontend Service  
+  - type: web
+    name: paper-trading-frontend
+    runtime: static
+    buildCommand: cd frontend && yarn install && yarn build
+    staticPublishPath: frontend/dist
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+
+databases:
+  - name: paper-trading-db
+    databaseName: paper_trading
+    user: postgres
