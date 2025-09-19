@@ -44,3 +44,5 @@ services:
 databases:
   - name: paper-trading-db
     databaseName: paper_trading
+    user: saurakumar
+    plan: free
